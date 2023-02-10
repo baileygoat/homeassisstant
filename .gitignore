@@ -4,12 +4,13 @@
 !*.sh
 !*.js*
 
-*.db*
+.db
 .ssh
 .storage
 .cloud
 .google.token
 home-assistant.log*
+home-assistant_v2.db*
 id_rsa*
 
 secrets.yaml
