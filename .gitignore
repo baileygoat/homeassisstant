@@ -4,9 +4,7 @@
 !*.sh
 !*.js*
 
-#*.ssh/
-#!id_rsa*
-
+*.db*
 .ssh
 .storage
 .cloud
