@@ -1,0 +1,44 @@
+- platform: template
+  sensors:
+    block_guest_mode_or_after_hours:
+      friendly_name: "Block if Stair Guest Mode OR after Business Hours"
+      value_template: >
+        {% if states('input_boolean.stair_guest_mode') == 'on' %} 
+          {{ True }}
+        {% elif states('schedule.ipcs_business_hours') == 'off' %}
+          {{ True }}
+        {% else %}
+          {{ False }}
+        {% endif %}
+
+- platform: template
+  sensors:
+    block_guest_mode_or_recliner_light_on:
+      friendly_name: "Block if Living Room Guest Mode OR Recliner Light ON"
+      value_template: >
+        {% if states('input_boolean.living_room_guest_mode_guest_mode') == 'on' %} 
+          {{ 'on' }}
+        {%elif states('light.lr_recliner_plug') == 'on'%}
+          {{ 'on' }}
+        {%else%}
+          {{ 'off' }}
+        {%endif%}
+
+- platform: template
+  sensors:
+    block_guest_mode_or_family_room_lights_on:
+      friendly_name: "Block if Family Room Guest Mode OR Family Room Lights ON"
+      value_template: >
+        {% if states('input_boolean.family_room_guest_mode') == 'on' %} 
+          {{ 'on' }}
+        {%elif states('light.fr_east_dimmer') == 'on'%}
+          {{ 'on' }}
+        {%elif states('switch.fr_desk_light') == 'on'%}
+          {{ 'on' }}
+        {%elif states('light.fr_west_dimmer') == 'on'%}
+          {{ 'on' }}
+        {%elif states('switch.fr_hall_light_4') == 'on'%}
+          {{ 'on' }}
+        {%else%}
+          {{ 'off' }}
+        {%endif%}

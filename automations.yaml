@@ -1,0 +1,779 @@
+- id: '1577910066796'
+  alias: Hall Lamp 2 OFF at Sunrise + 1 hr
+  description: ''
+  trigger:
+  - event: sunrise
+    offset: +01:00:00
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_guest_mode
+    state: 'off'
+  action:
+  - type: turn_off
+    device_id: 461c0dbb903c4718869cd4cde75ea73e
+    entity_id: switch.lr_hall_lamp
+    domain: switch
+  mode: single
+- id: '1577910262435'
+  alias: Hall Lamp 3 ON Sunset
+  description: ''
+  trigger:
+  - event: sunset
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_guest_mode
+    state: 'off'
+  action:
+  - type: turn_on
+    device_id: 461c0dbb903c4718869cd4cde75ea73e
+    entity_id: switch.lr_hall_lamp
+    domain: switch
+  mode: single
+- id: '1577910413173'
+  alias: Living Room Lamps - 9:15 pm - OFF
+  description: ''
+  trigger:
+  - at: '21:15:00'
+    platform: time
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_guest_mode
+    state: 'off'
+  action:
+  - type: turn_off
+    device_id: 32dc0b6db2b74288aad0f24adda51254
+    entity_id: switch.lr_couch_lamp
+    domain: switch
+  - type: turn_off
+    device_id: 08123725e2b67a11dfb6c11d0f1c2e3e
+    entity_id: light.lr_recliner_plug
+    domain: light
+  mode: single
+- id: '1577911809265'
+  alias: Couch Lamp - 9:10pm - OFF
+  description: ''
+  trigger:
+  - at: '21:10:00'
+    platform: time
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_guest_mode
+    state: 'off'
+  action:
+  - type: turn_off
+    device_id: 32dc0b6db2b74288aad0f24adda51254
+    entity_id: switch.lr_couch_lamp
+    domain: switch
+  mode: single
+- id: '1578660992458'
+  alias: Living Room Lights - 5:16 am - ON
+  description: ''
+  trigger:
+  - at: 05:16:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_guest_mode
+    state: 'off'
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_lamps_on
+    metadata: {}
+  mode: single
+- id: '1586998284564'
+  alias: Outside Lights 3 ON at Sunset
+  description: ''
+  trigger:
+  - event: sunset
+    offset: +00:00:00
+    platform: sun
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.outside_lights_on
+    metadata: {}
+  mode: single
+- id: '1586998901571'
+  alias: Outside Lights 1 OFF at Sunrise
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.outside_lights_off
+    metadata: {}
+  mode: single
+- id: '1588423396648'
+  alias: Sunset Notification
+  description: ''
+  trigger:
+  - event: sunset
+    offset: -00:02:00
+    platform: sun
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_7
+    data:
+      message: The sun will set in 2 minutes.
+      title: Sunset Nofication
+  - delay: 00:01:55
+  - service: notify.mobile_app_pixel_7
+    data:
+      message: The sun is setting now.
+      title: Sun setting now.
+- id: '1588530996512'
+  alias: 'What''s the weather? '
+  description: ''
+  trigger:
+  - minutes: '00'
+    platform: time_pattern
+    seconds: '00'
+  condition: []
+  action:
+  - data:
+      Message: weather.home
+    service: notify.mobile_app_pixel_2_xl
+- id: '1602463501176'
+  alias: All Inside Lights OFF at bedtime when Dan charging phone
+  description: ''
+  trigger:
+  - type: plugged_in
+    platform: device
+    device_id: a2aab9ed4f81e3aac41ba1f7f9b631e6
+    entity_id: binary_sensor.pixel_7_is_charging
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+  - condition: state
+    state: charging
+    attribute: device_class
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    entity_id: sensor.pixel_4_xl_battery_state
+  - condition: time
+    after: '20:00:00'
+    before: '23:59:59'
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.good_night
+    metadata: {}
+  mode: single
+- id: '1607973068912'
+  alias: Computer Idle Webhook
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: computer_is_idle
+  condition:
+  - condition: numeric_state
+    entity_id: binary_sensor.o_multisensor_motion_detection
+    above: '0'
+    below: '9'
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.office_lights_off
+    metadata: {}
+  mode: single
+- id: '1651334862396'
+  alias: Back Door Motion / Step Light On and Off
+  description: ''
+  use_blueprint:
+    path: freakshock88/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.bd_trisensor_motion_detection
+      target_entity: switch.in_wall_paddle_switch_120_277_qfsw_500s
+      no_motion_wait: input_number.step_light_off_time_minutes
+      illuminance_sensor: sensor.bd_trisensor_illuminance
+      illuminance_cutoff: input_number.brightness
+      blocker_entity: binary_sensor.block_guest_mode_or_family_room_lights_on
+- id: '1653854281754'
+  alias: Dan left Home
+  description: Notify Dan when device_tracker.dan_pixel5 leaves the Home zone.
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.pixel_7
+    zone: zone.home
+    event: leave
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_4_xl
+    data:
+      message: Dan left home
+  mode: single
+- id: '1653858848938'
+  alias: Master, Stair - 3xOFF for Inside Off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: fd95c74dd3f05f7980886f3005b3b3db
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 4
+  - platform: device
+    device_id: e63d3e0b4b1dba52ea5f37744227616f
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 4
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.good_night
+    metadata: {}
+  mode: single
+- id: '1655086232956'
+  alias: Master - 2xOFF - Living Room Lamps OFF
+  description: ''
+  trigger:
+  - platform: device
+    device_id: fd95c74dd3f05f7980886f3005b3b3db
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_lamps_off
+    metadata: {}
+  mode: single
+- id: '1655135096230'
+  alias: Master - 2xON - Good Morning Light
+  description: ''
+  trigger:
+  - platform: device
+    device_id: fd95c74dd3f05f7980886f3005b3b3db
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_lamps_on
+    metadata: {}
+  mode: single
+- id: '1655135510408'
+  alias: Master, Stair - 3xON - All Lights On
+  description: ''
+  trigger:
+  - platform: device
+    device_id: fd95c74dd3f05f7980886f3005b3b3db
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 4
+  - platform: device
+    device_id: e63d3e0b4b1dba52ea5f37744227616f
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 4
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.all_lights_on
+    metadata: {}
+  mode: single
+- id: '1655159834255'
+  alias: O-Desk - 2xON - Workday
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 1fef0b7a04be1b7fa23e8f68c0e001e6
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.work_day_lighting
+    metadata: {}
+  mode: single
+- id: '1655159925518'
+  alias: O-Desk - 2xOFF - Family Room Off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 1fef0b7a04be1b7fa23e8f68c0e001e6
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.family_room_off
+    metadata: {}
+  mode: single
+- id: '1655161190644'
+  alias: O-Desk - HeldON - Overhead ON
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 1fef0b7a04be1b7fa23e8f68c0e001e6
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 2
+  condition: []
+  action:
+  - type: turn_on
+    device_id: c1669859c853cd8fd7eedc5870e37042
+    entity_id: switch.of_overhead_light_3
+    domain: switch
+  mode: single
+- id: '1655161222797'
+  alias: O-Desk - HeldOFF - Overhead OFF
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 1fef0b7a04be1b7fa23e8f68c0e001e6
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 2
+  condition: []
+  action:
+  - type: turn_off
+    device_id: c1669859c853cd8fd7eedc5870e37042
+    entity_id: switch.of_overhead_light_3
+    domain: switch
+  mode: single
+- id: '1655214366734'
+  alias: Stair - 2xON - Work Day Lighting
+  description: '
+
+    '
+  trigger:
+  - platform: device
+    device_id: e63d3e0b4b1dba52ea5f37744227616f
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.work_day_lighting
+    metadata: {}
+  mode: single
+- id: '1655214409909'
+  alias: Stair Light, Fr-East-Dimmer 2xOFF - Downstairs OFF
+  description: ''
+  trigger:
+  - platform: device
+    device_id: e63d3e0b4b1dba52ea5f37744227616f
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 3
+  - platform: device
+    device_id: 3fd9d1f03fed1ed6c46938b69268a614
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.downstairs_off
+    metadata: {}
+  mode: single
+- id: '1655214503322'
+  alias: Stair - 3xON - All ON
+  description: ''
+  trigger:
+  - platform: device
+    device_id: e63d3e0b4b1dba52ea5f37744227616f
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 4
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.all_lights_on
+    metadata: {}
+  mode: single
+- id: '1657325035090'
+  alias: Fr-East-Dimmer-2 2xON - Watch TV
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 3fd9d1f03fed1ed6c46938b69268a614
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    data: {}
+    target:
+      entity_id: scene.watch_tv
+  mode: single
+- id: '1665495128223'
+  alias: Living Room Lamps - Illuminance>X - OFF
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.lr_trisensor_illuminance_2
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    above: 75
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_guest_mode
+    state: 'off'
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_lamps_off
+    metadata: {}
+  mode: single
+- id: '1665579973283'
+  alias: Work Day - Stair motion - ON
+  description: ''
+  use_blueprint:
+    path: freakshock88/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.bd_trisensor_motion_detection
+      target_entity: scene.work_day_lighting
+      blocker_entity: binary_sensor.block_guest_mode_or_after_hours
+- id: '1665732511156'
+  alias: Fr-Hall - 2xON - Office Lights ON
+  description: ''
+  trigger:
+  - platform: device
+    device_id: fc51e682cf59381505ef1db9da2f5c74
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 3
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 1fef0b7a04be1b7fa23e8f68c0e001e6
+    entity_id: switch.ge_quick_fit_smart_in_wall_paddle_switch_2
+    domain: switch
+  - type: turn_on
+    device_id: c1669859c853cd8fd7eedc5870e37042
+    entity_id: switch.ge_quick_fit_smart_in_wall_paddle_switch_3
+    domain: switch
+  mode: single
+- id: '1667611913202'
+  alias: Living Room Lamps - Illuminance<X - ON
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.lr_trisensor_illuminance_2
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    below: 60
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_guest_mode
+    state: 'off'
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_lamps_on
+    metadata: {}
+  mode: single
+- id: '1667613642182'
+  alias: Lights OFF when Donna charges her phone
+  description: ''
+  trigger:
+  - type: plugged_in
+    platform: device
+    device_id: 7311288b6d166bd6643b685147c6b878
+    entity_id: binary_sensor.pixel_4_xl_is_charging
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+  - condition: state
+    state: 'True'
+    attribute: device_class
+    entity_id: binary_sensor.pixel_7_is_charging
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - condition: time
+    after: '20:00:00'
+    before: '23:59:59'
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.good_night
+    metadata: {}
+  mode: single
+- id: '1669391846578'
+  alias: Office Lights on when present
+  description: ''
+  use_blueprint:
+    path: freakshock88/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.o_multisensor_motion_detection
+      target_entity: scene.office_lights_on
+      blocker_entity: input_boolean.office_guest_mode
+- id: '1669406908274'
+  alias: Fr-East-Dimmer-2 2xOFF - Downstairs Off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 3fd9d1f03fed1ed6c46938b69268a614
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.downstairs_off
+    metadata: {}
+  mode: single
+- id: '1669481232328'
+  alias: Recliner Lamp ON and OFF by motion detection
+  description: ''
+  use_blueprint:
+    path: freakshock88/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.lr_trisensor_motion_detection_2
+      target_entity: light.lr_recliner_plug
+      illuminance_sensor: sensor.lr_trisensor_illuminance_2
+      illuminance_cutoff: input_number.living_room_brightness
+      blocker_entity: binary_sensor.block_guest_mode_or_recliner_light_on
+      no_motion_wait: input_number.recliner_lamp_off_time_min
+- id: '1669520083459'
+  alias: Stair - 2xOFF - Downstairs Off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: e63d3e0b4b1dba52ea5f37744227616f
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.downstairs_off
+    metadata: {}
+  mode: single
+- id: '1670855822156'
+  alias: Office Lights On - West 2xON
+  description: ''
+  trigger:
+  - platform: device
+    device_id: a8ffe2e44692d4389ed88b7a65141bc0
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.office_lights_on
+    metadata: {}
+  mode: single
+- id: '1670855886075'
+  alias: Office Lights OFF - West Dimmer 2xOFF
+  description: ''
+  trigger:
+  - platform: device
+    device_id: a8ffe2e44692d4389ed88b7a65141bc0
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 3
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.office_lights_off
+    metadata: {}
+  mode: single
+- id: '1671241428023'
+  alias: Master Bedroom OFF after 30 minutes
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: fd95c74dd3f05f7980886f3005b3b3db
+    entity_id: switch.in_wall_paddle_switch_120_277_qfsw_500s_4
+    domain: switch
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 30
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: fd95c74dd3f05f7980886f3005b3b3db
+    entity_id: switch.in_wall_paddle_switch_120_277_qfsw_500s_4
+    domain: switch
+  mode: single
+- id: '1673740484975'
+  alias: 'Laundry Light ON when door opened '
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: e3fa75b43c1b1c7368ae9f62434efcfe
+    entity_id: binary_sensor.la_door_window_door_is_open
+    domain: binary_sensor
+  condition:
+  - condition: device
+    type: is_off
+    device_id: 3d78fb06d4c8386b9fb150eba0c86f07
+    entity_id: switch.la_light_5
+    domain: switch
+  action:
+  - type: turn_on
+    device_id: 3d78fb06d4c8386b9fb150eba0c86f07
+    entity_id: switch.la_light_5
+    domain: switch
+  mode: single
+- id: '1673740644913'
+  alias: Laundry Light OFF when door closed
+  description: ''
+  trigger:
+  - type: not_opened
+    platform: device
+    device_id: e3fa75b43c1b1c7368ae9f62434efcfe
+    entity_id: binary_sensor.la_door_window_door_is_open
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 3d78fb06d4c8386b9fb150eba0c86f07
+    entity_id: switch.la_light_5
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: 3d78fb06d4c8386b9fb150eba0c86f07
+    entity_id: switch.la_light_5
+    domain: switch
+  mode: single

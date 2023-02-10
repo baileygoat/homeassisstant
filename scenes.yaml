@@ -1,0 +1,464 @@
+- id: '1624316700328'
+  name: Watch Movie
+  entities:
+    switch.fr_desk_light:
+      friendly_name: fr-desk-light
+      state: 'off'
+    light.fr_east_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-east-dimmer
+      supported_features: 32
+      state: 'off'
+    switch.fr_hall_light_4:
+      icon: mdi:coach-lamp
+      friendly_name: fr-hall-light
+      state: 'off'
+    light.fr_west_dimmer_2:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-west-dimmer
+      supported_features: 32
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_2:
+      icon: mdi:lightbulb-outline
+      friendly_name: fr-stair-light
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s:
+      icon: mdi:steps
+      friendly_name: fr-step-light
+      state: 'off'
+    switch.fr_recliner_plug:
+      icon: mdi:television
+      friendly_name: fr-tv-plug-switch
+      state: 'on'
+  icon: mdi:movie-roll
+  metadata: {}
+- id: '1625264666163'
+  name: Work Day Lighting
+  entities:
+    switch.fr_desk_light:
+      friendly_name: fr-desk-light
+      state: 'on'
+    light.fr_west_dimmer_2:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-west-dimmer
+      supported_features: 32
+      color_mode: brightness
+      brightness: 255
+      state: 'on'
+    light.fr_east_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-east-dimmer
+      supported_features: 32
+      color_mode: brightness
+      brightness: 255
+      state: 'on'
+    switch.fr_hall_light_4:
+      friendly_name: fr-hall-light
+      icon: mdi:coach-lamp
+      state: 'on'
+  icon: mdi:briefcase-clock
+- id: '1631756823620'
+  name: Inside Lights Off
+  entities:
+    switch.fr_desk_light:
+      friendly_name: fr-desk-light
+      icon: mdi:light-recessed
+      state: 'off'
+    light.fr_east_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-east-dimmer
+      supported_features: 32
+      icon: mdi:light-recessed
+      state: 'off'
+    switch.fr_hall_light_4:
+      icon: mdi:coach-lamp
+      friendly_name: fr-hall-light
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_2:
+      icon: mdi:lightbulb-outline
+      friendly_name: fr-stair-light
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s:
+      icon: mdi:stairs
+      friendly_name: fr-step-light
+      state: 'off'
+    switch.fr_recliner_plug:
+      icon: mdi:television
+      friendly_name: fr-tv-plug-switch
+      state: 'off'
+    light.fr_west_dimmer_2:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-west-dimmer
+      supported_features: 32
+      icon: mdi:light-recessed
+      state: 'off'
+    switch.of_desk_light_2:
+      friendly_name: of-desk-light
+      icon: mdi:light-recessed
+      state: 'off'
+    switch.of_overhead_light_3:
+      friendly_name: of-overhead-light
+      icon: mdi:desk-lamp
+      state: 'off'
+    switch.lr_couch_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-couch-lamp
+      state: 'off'
+    switch.lr_hall_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-hall-lamp
+      state: 'off'
+    light.lr_recliner_plug:
+      supported_color_modes:
+      - brightness
+      friendly_name: lr-recliner-plug
+      supported_features: 32
+      state: 'off'
+    light.dr_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: dr-dimmer
+      supported_features: 32
+      icon: mdi:chandelier
+      state: 'off'
+  icon: mdi:bed
+  metadata: {}
+- id: '1632877959225'
+  name: Office ON
+  entities:
+    switch.of_desk_light_2:
+      friendly_name: of-desk-light
+      state: 'on'
+    switch.of_overhead_light_3:
+      friendly_name: of-overhead-light
+      state: 'on'
+  icon: mdi:lightbulb
+- id: '1632878009509'
+  name: Office OFF
+  entities:
+    switch.of_desk_light_2:
+      friendly_name: of-desk-light
+      state: 'off'
+    switch.of_overhead_light_3:
+      friendly_name: of-overhead-light
+      state: 'off'
+- id: '1655135361486'
+  name: All Inside Lights On
+  entities:
+    light.dr_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: dr-dimmer
+      supported_features: 32
+      color_mode: brightness
+      brightness: 255
+      state: 'on'
+    light.fr_east_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-east-dimmer
+      supported_features: 32
+      color_mode: brightness
+      brightness: 255
+      state: 'on'
+    switch.fr_hall_light_4:
+      icon: mdi:coach-lamp
+      friendly_name: fr-hall-light
+      state: 'on'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_2:
+      icon: mdi:lightbulb-outline
+      friendly_name: fr-stair-light
+      state: 'on'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s:
+      friendly_name: fr-step-light
+      state: 'on'
+    light.fr_west_dimmer_2:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-west-dimmer
+      supported_features: 32
+      color_mode: brightness
+      brightness: 255
+      state: 'on'
+    switch.of_desk_light_2:
+      friendly_name: of-desk-light
+      state: 'on'
+    switch.of_overhead_light_3:
+      friendly_name: of-overhead-light
+      state: 'on'
+    switch.lr_couch_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-couch-lamp
+      state: 'on'
+    light.lr_recliner_plug:
+      supported_color_modes:
+      - brightness
+      friendly_name: lr-recliner-plug
+      supported_features: 32
+      color_mode: brightness
+      brightness: 255
+      state: 'on'
+    switch.lr_hall_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-hall-lamp
+      state: 'on'
+    switch.la_light_5:
+      friendly_name: la-light
+      state: 'on'
+    switch.fr_desk_light:
+      friendly_name: fr-desk-light
+      state: 'on'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_4:
+      friendly_name: mb-light
+      state: 'on'
+  icon: mdi:alarm-light
+  metadata: {}
+- id: '1655160013740'
+  name: Family Room Off
+  entities:
+    switch.fr_desk_light:
+      friendly_name: fr-desk-light
+      state: 'off'
+    light.fr_east_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-east-dimmer
+      supported_features: 32
+      state: 'off'
+    light.fr_west_dimmer_2:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-west-dimmer
+      supported_features: 32
+      state: 'off'
+    switch.fr_hall_light_4:
+      friendly_name: fr-hall-light
+      icon: mdi:coach-lamp
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_2:
+      friendly_name: fr-stair-light
+      icon: mdi:lightbulb-outline
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s:
+      friendly_name: fr-step-light
+      state: 'off'
+- id: '1664848673960'
+  name: Living Room Lamps ON
+  entities:
+    switch.lr_couch_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-couch-lamp
+      state: 'on'
+    switch.lr_hall_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-hall-lamp
+      state: 'on'
+    light.lr_recliner_plug:
+      supported_color_modes:
+      - brightness
+      friendly_name: lr-recliner-plug
+      supported_features: 32
+      color_mode: brightness
+      brightness: 252
+      state: 'on'
+  icon: mdi:lamps-outline
+- id: '1664848750998'
+  name: Living Room Lamps OFF
+  entities:
+    switch.lr_couch_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-couch-lamp
+      state: 'off'
+    switch.lr_hall_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-hall-lamp
+      state: 'off'
+    light.lr_recliner_plug:
+      supported_color_modes:
+      - brightness
+      friendly_name: lr-recliner-plug
+      supported_features: 32
+      state: 'off'
+  icon: mdi:lamps-outline
+  metadata: {}
+- id: '1669385724933'
+  name: All Inside Lights Off
+  entities:
+    light.dr_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: dr-dimmer
+      supported_features: 32
+      state: 'off'
+    light.fr_east_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-east-dimmer
+      supported_features: 32
+      state: 'off'
+    switch.fr_hall_light_4:
+      icon: mdi:coach-lamp
+      friendly_name: fr-hall-light
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_2:
+      icon: mdi:lightbulb-outline
+      friendly_name: fr-stair-light
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s:
+      friendly_name: fr-step-light
+      state: 'off'
+    light.fr_west_dimmer_2:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-west-dimmer
+      supported_features: 32
+      state: 'off'
+    switch.of_desk_light_2:
+      friendly_name: of-desk-light
+      state: 'off'
+    switch.of_overhead_light_3:
+      friendly_name: of-overhead-light
+      state: 'off'
+    switch.lr_couch_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-couch-lamp
+      state: 'off'
+    light.lr_recliner_plug:
+      supported_color_modes:
+      - brightness
+      friendly_name: lr-recliner-plug
+      supported_features: 32
+      state: 'off'
+    switch.lr_hall_lamp:
+      icon: mdi:lamp
+      friendly_name: lr-hall-lamp
+      state: 'off'
+    switch.la_light_5:
+      friendly_name: la-light
+      state: 'off'
+    switch.fr_desk_light:
+      friendly_name: fr-desk-light
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_4:
+      friendly_name: mb-light
+      state: 'off'
+  icon: mdi:alarm-light
+  metadata: {}
+- id: '1669387510444'
+  name: Watch TV
+  entities:
+    switch.in_wall_paddle_switch_120_277_qfsw_500s:
+      icon: mdi:steps
+      friendly_name: fr-step-light
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_2:
+      icon: mdi:lightbulb-outline
+      friendly_name: fr-stair-light
+      state: 'off'
+    light.fr_west_dimmer_2:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-west-dimmer
+      supported_features: 32
+      state: 'off'
+    light.fr_east_dimmer:
+      supported_color_modes:
+      - brightness
+      friendly_name: fr-east-dimmer
+      supported_features: 32
+      color_mode: brightness
+      brightness: 178
+      state: 'on'
+    switch.fr_desk_light:
+      friendly_name: fr-desk-light
+      state: 'on'
+    switch.fr_hall_light_4:
+      icon: mdi:coach-lamp
+      friendly_name: fr-hall-light
+      state: 'off'
+    switch.fr_recliner_plug:
+      icon: mdi:television
+      friendly_name: fr-tv-plug-switch
+      state: 'on'
+  icon: mdi:television
+  metadata: {}
+- id: '1669393089095'
+  name: Outside Lights On
+  entities:
+    switch.front_light:
+      icon: mdi:coach-lamp
+      friendly_name: Front Light
+      state: 'on'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_3:
+      friendly_name: bd-outside-light
+      state: 'on'
+  icon: mdi:coach-lamp
+  metadata: {}
+- id: '1669393130129'
+  name: Outside Lights Off
+  entities:
+    switch.front_light:
+      icon: mdi:coach-lamp
+      friendly_name: Front Light
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_3:
+      friendly_name: bd-outside-light
+      state: 'off'
+  icon: mdi:coach-lamp
+  metadata: {}
+- id: '1669490128552'
+  name: Downstairs Off
+  entities:
+    switch.fr_desk_light:
+      icon: mdi:light-recessed
+      friendly_name: fr-desk-light
+      state: 'off'
+    light.fr_east_dimmer:
+      supported_color_modes:
+      - brightness
+      icon: mdi:light-recessed
+      friendly_name: fr-east-dimmer
+      supported_features: 32
+      state: 'off'
+    light.fr_west_dimmer_2:
+      supported_color_modes:
+      - brightness
+      icon: mdi:light-recessed
+      friendly_name: fr-west-dimmer
+      supported_features: 32
+      state: 'off'
+    switch.fr_hall_light_4:
+      icon: mdi:coach-lamp
+      friendly_name: fr-hall-light
+      state: 'off'
+    switch.of_desk_light_2:
+      icon: mdi:light-recessed
+      friendly_name: of-desk-light
+      state: 'off'
+    switch.of_overhead_light_3:
+      icon: mdi:desk-lamp
+      friendly_name: of-overhead-light
+      state: 'off'
+    switch.la_light_5:
+      friendly_name: la-light
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s:
+      icon: mdi:stairs
+      friendly_name: fr-step-light
+      state: 'off'
+    switch.fr_recliner_plug:
+      icon: mdi:television
+      friendly_name: fr-tv-plug-switch
+      state: 'off'
+    switch.in_wall_paddle_switch_120_277_qfsw_500s_2:
+      icon: mdi:lightbulb-outline
+      friendly_name: fr-stair-light
+      state: 'off'
+  icon: mdi:power
+  metadata: {}
